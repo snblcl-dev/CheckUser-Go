@@ -62,7 +62,7 @@ func (r *SQLiteDeviceRepository) Save(ctx context.Context, device *entity.Device
 
 func (r *SQLiteDeviceRepository) Exists(ctx context.Context, device *entity.Device) bool {
 	var count int
-	err := r.db.QueryRowContext(ctx, "SELECT COUNT(*) FROM devices WHERE id = ?", device.ID).Scan(&count)
+	err := r.db.QueryRowContext(ctx, "SELECT COUNT(*) FROM devices WHERE id = ? AND username = ?", device.ID, device.Username).Scan(&count)
 	if err != nil {
 		return false
 	}
