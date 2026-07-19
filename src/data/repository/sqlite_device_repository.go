@@ -53,7 +53,7 @@ func NewSQLiteDeviceRepository() contract.DeviceRepository {
 }
 
 func (r *SQLiteDeviceRepository) Save(ctx context.Context, device *entity.Device) error {
-	_, err := r.db.ExecContext(ctx, "INSERT INTO devices (id, username) VALUES (?, ?)", device.ID, device.Username)
+	_, err := r.db.ExecContext(ctx, "INSERT OR REPLACE INTO devices (id, username) VALUES (?, ?)", device.ID, device.Username)
 	if err != nil {
 		return err
 	}
